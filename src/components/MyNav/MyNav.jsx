@@ -1,7 +1,19 @@
 import "./MyNav.css";
-import { Nav, Button } from "react-bootstrap";
+import { Nav, Button, InputGroup, FormControl } from "react-bootstrap";
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const MyNav = () => {
+const MyNav = ({ showSearchResult }) => {
+  const [searchString, setSearchString] = useState("");
+  const location = useLocation();
+  const searchStringHandler = (e) => {
+    if (e.keyCode === 13) {
+      // WHEN ENTER KEY IS PRESSED
+      showSearchResult(searchString);
+    } else {
+      setSearchString(e.currentTarget.value);
+    }
+  };
   return (
     <>
       <Nav className="navbar navbar-expand-lg nav-center">
@@ -25,52 +37,127 @@ const MyNav = () => {
         </Button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
-              <a className="nav-link nav-link-active" href="./home/home">
+          <div className="navbar-nav mr-auto">
+            <Link to="/">
+              <div
+                className={
+                  location.pathname === "/tvshows"
+                    ? "nav-link active"
+                    : "nav-link"
+                }
+              >
+                Home
+              </div>
+            </Link>
+            <Link to="/tvshows">
+              <div
+                className={
+                  location.pathname === "/tvshows"
+                    ? "nav-link active"
+                    : "nav-link"
+                }
+              >
+                TV Shows
+              </div>
+            </Link>
+            <Link to="/movies">
+              <div
+                className={
+                  location.pathname === "/movies"
+                    ? "nav-link active"
+                    : "nav-link"
+                }
+              >
+                Movies
+              </div>
+            </Link>
+            <Link to="/recentlyadded">
+              <div
+                className={
+                  location.pathname === "/recentlyadded"
+                    ? "nav-link active"
+                    : "nav-link"
+                }
+              >
+                Recently Added
+              </div>
+            </Link>
+            <Link to="/mylist">
+              <div
+                className={
+                  location.pathname === "/mylist"
+                    ? "nav-link active"
+                    : "nav-link"
+                }
+              >
+                My List
+              </div>
+            </Link>
+            {/*  <a className="nav-link nav-link-active" href="./home/home">
                 Home <span className="sr-only">(current)</span>
-              </a>
-            </li>
-            <li className="nav-item">
+              </a> */}
+
+            {/* <li className="nav-item">
               <a className="nav-link" href="./home/home">
                 TV Shows
               </a>
-            </li>
+            </li> */}
 
-            <li className="nav-item">
+            {/*  <li className="nav-item">
               <a className="nav-link" href="./home/home">
                 Movies
               </a>
-            </li>
+            </li> */}
 
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a className="nav-link" href="./home/home">
                 Recently Added
               </a>
-            </li>
+            </li> */}
 
-            <li className="nav-item">
+            {/*  <li className="nav-item">
               <a className="nav-link" href="./home/home">
                 My List
               </a>
             </li>
-          </ul>
-
+          </div> */}
+          </div>
+          {/*  <span className="d-flex align-items-center">
+            <InputGroup className="icons mr-3">
+              <FormControl
+                placeholder="Search and press enter"
+                aria-label="search"
+                aria-describedby="basic-addon1"
+                onKeyDown={searchStringHandler}
+                onChange={searchStringHandler}
+                value={searchString}
+              />
+            </InputGroup>
+            <div id="kids">KIDS</div>
+            <i className="fa fa-bell icons"></i>
+            <i className="fa fa-user icons"></i>
+          </span> */}
           <i className="fas fa-search"></i>
           <a className="nav-link" href="./home/home">
             Admin
           </a>
+
           <i className="fas fa-bell"></i>
           <img src="avatar.png" className="nav-avatar" alt="nav-avatar" />
           <i className="fas fa-caret-down"></i>
         </div>
       </Nav>
 
-      <header className="header">
-        <div
-          className="banner"
-          style={{ backgroundImage: `url("squid-game.jpg")` }}
-        >
+      <header
+        className="header img-fluid"
+        style={{
+          backgroundImage: `url("squid-game.jpg")`,
+          width: "100%",
+          backgroundRepeat: "no-repeat",
+          objectFit: "cover",
+        }}
+      >
+        <div className="banner" style={{}}>
           <div className="banner-info">
             <h1 className="banner-title">SQUID GAMES</h1>
             <div className="banner-icons">
