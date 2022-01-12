@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router";
-import { Modal } from "react-bootstrap";
+import { Card, Container, Image, Modal, Row } from "react-bootstrap";
+import CommentList from "../CommentArea/CommentList";
 
 const Details = () => {
   const [details, setDetails] = useState(null);
@@ -52,49 +53,36 @@ const Details = () => {
   }, [params.movieID]);
 
   return (
-    <div className="text-center text-white">
-      {details && (
-        <>
-          <h2>{details.Title}</h2>
-          <div>
-            <img src={details.Poster} alt="movie poster" />
-            <ul
-              style={{
-                listStyleType: "none",
-                /* backgroundColor: "pink", */
-              }}
-            >
-              {comments.map((c) => (
-                <li className="my-3" key={c._id}>
-                  {c.comment}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/*  <Modal
-            show={this.state.selected !== null}
-            onHide={() => this.setState({ selected: null })}
-            animation={false}
-          >
-            <Modal.Header closeButton>
-              <Modal.Title
-                style={{
-                  color: "black",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                Comments
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body style={{}}>
-             
-            </Modal.Body>
-          </Modal> */}
-        </>
-      )}
-    </div>
+    <Container fluid>
+      <Row className="justify-content-center">
+        <Card
+          className="text-center text-white"
+          style={{
+            backgroundColor: "white",
+            border: "2px solid red",
+            width: "25rem",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          {details && (
+            <>
+              <Card.Text style={{ fontSize: "2em", color: "red" }}>
+                {details.Title}
+              </Card.Text>
+              <Image
+                className="justify-content-center"
+                src={details.Poster}
+                alt="movie poster"
+              />
+              <Card.Body>
+                <CommentList commentsToShow={comments} />
+              </Card.Body>
+            </>
+          )}
+        </Card>
+      </Row>
+    </Container>
   );
 };
 
